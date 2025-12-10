@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using CinemaManagement.Web.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add DbContext with SQL Server
+builder.Services.AddDbContext<CinemaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

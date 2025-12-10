@@ -1,0 +1,42 @@
+@model CinemaManagement.Web.Models.Hall
+
+@{
+    ViewData["Title"] = "Hall Details";
+}
+
+<h1>Hall Details</h1>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rows)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rows)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SeatsPerRow)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SeatsPerRow)
+        </dd>
+        <dt class = "col-sm-2">
+            Capacity
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Capacity
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
