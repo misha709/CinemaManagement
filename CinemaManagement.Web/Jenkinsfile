@@ -2,8 +2,10 @@ pipeline {
     agent any
     stages {
         stage('Build') {
-            sh 'dotnet restore'
-            sh 'dotnet build --no-restore'
+            steps {
+                sh 'dotnet restore'
+                sh 'dotnet build --no-restore'
+            }
         }
     }    
 }
