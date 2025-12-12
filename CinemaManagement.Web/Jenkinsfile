@@ -20,26 +20,31 @@ pipeline {
         }
 
         stage('Publish') {
-            steps {
-                sh '''
-                  set -eux
-            
-                  PUBLISH_DIR="$WORKSPACE/artifacts/dist"
-                  DATE=$(date +%Y-%m-%d)
-                  ARCHIVE_NAME="myapp-${DATE}-${BUILD_NUMBER}.zip"
-            
-                  dotnet publish ./CinemaManagement.Web/CinemaManagement.Web.csproj -c Release --no-restore -o "$PUBLISH_DIR"
-            
-                  cd "$WORKSPACE/artifacts"
-                  ls -l $PUBLISH_DIR
-                  tar -czf "$ARCHIVE_NAME" "$PUBLISH_DIR"
-                '''
+          steps {
+            sh '''
+              set -eux
+        
+              OUT_DIR="artifacts/dist"
+              ARCHIVE="myapp-${BUILD_NUMBER}.tar.gz"
+        
+              rm -rf artifacts
+              mkdir -p "$OUT_DIR"
+        
+              dotnet publish ./CinemaManagement.Web/CinemaManagement.Web.csproj \
+                -c Release \
+                --no-restore \
+                -o "$OUT_DIR"
+        
+              tar -czf "$ARCHIVE" -C artifacts dist
+              ls -la "$ARCHIVE"
+            '''
+          }
+          post {
+            success {
+              archiveArtifacts artifacts: '*.tar.gz', fingerprint: true
             }
-            post {
-                success {
-                    archiveArtifacts artifacts: 'dist/**/*', fingerprint: true
-                }
-            }
+          }
         }
+
     }    
 }
