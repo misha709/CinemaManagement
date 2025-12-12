@@ -18,5 +18,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy') {
+            steps {
+                sh 'dotnet publish CinemaManagement.Web --no-restore -o dist'
+            }
+            post {
+                success {
+                    archiveArtifacts 'dist/*.*'
+                }
+            }
+        }
     }    
 }
