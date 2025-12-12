@@ -22,6 +22,7 @@ pipeline {
         stage('Publish') {
             steps {
                 sh 'dotnet publish CinemaManagement.Web -c Release --no-restore -o dist'
+                sh 'ls dist'
             }
             post {
                 success {
