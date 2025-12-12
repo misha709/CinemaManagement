@@ -32,7 +32,7 @@ pipeline {
             
                   cd "$WORKSPACE/artifacts"
                   ls -l $PUBLISH_DIR
-                  zip -r "$ARCHIVE_NAME" $PUBLISH_DIR
+                  tar -czf "$ARCHIVE_NAME" "$PUBLISH_DIR"
                 '''
             }
             post {
