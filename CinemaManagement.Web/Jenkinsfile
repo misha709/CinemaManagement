@@ -19,13 +19,13 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Publish') {
             steps {
-                sh 'dotnet publish CinemaManagement.Web --no-restore -o dist'
+                sh 'dotnet publish CinemaManagement.Web -c Release --no-restore -o dist'
             }
             post {
                 success {
-                    archiveArtifacts 'dist/*'
+                    archiveArtifacts artifacts 'dist/*', fingerprint: true
                 }
             }
         }
