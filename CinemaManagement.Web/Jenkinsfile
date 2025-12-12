@@ -25,7 +25,7 @@ pipeline {
               set -eux
         
               OUT_DIR="artifacts/dist"
-              ARCHIVE="myapp-${BUILD_NUMBER}.tar.gz"
+              ARCHIVE="cm-${BUILD_NUMBER}.tar.gz"
         
               rm -rf artifacts
               mkdir -p "$OUT_DIR"
