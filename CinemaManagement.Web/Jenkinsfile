@@ -20,6 +20,9 @@ pipeline {
                 always {
                     recordCoverage(tools: [[parser: 'COBERTURA', pattern: '**/*.xml']], sourceDirectories: [[path: 'CinemaManagement.Tests/TestResults']])
                 }
+                failure {
+                  script { notifyTelegram("❌ TESTS FAILED", "Tests failed") }
+                }
             }
         }
 
