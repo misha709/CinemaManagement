@@ -31,8 +31,8 @@ pipeline {
                   dotnet publish ./CinemaManagement.Web/CinemaManagement.Web.csproj -c Release --no-restore -o "$PUBLISH_DIR"
             
                   cd "$WORKSPACE/artifacts"
-                  ls -l
-                  zip -r "$ARCHIVE_NAME" dist
+                  ls -l $PUBLISH_DIR
+                  zip -r "$ARCHIVE_NAME" $PUBLISH_DIR
                 '''
             }
             post {
