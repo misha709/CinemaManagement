@@ -49,7 +49,7 @@ public class BookingsControllerTests
         // Assert
         var viewResult = Assert.IsType<ViewResult>(result);
         var model = Assert.IsAssignableFrom<IEnumerable<Booking>>(viewResult.Model);
-        Assert.Equal(2, model.Count());
+        Assert.Equal(12, model.Count());//TODO Fix. Temporary change to check failed ci stage. 12 -> 2
     }
 
     [Fact]
