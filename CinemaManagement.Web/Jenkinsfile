@@ -71,10 +71,8 @@ def notifyTelegram(String status, String details) {
 
       TEXT="${TG_STATUS}%0AJob: ${JOB_NAME}%0ABuild: #${BUILD_NUMBER}%0A${TG_DETAILS}%0AURL: ${BUILD_URL}"
 
-      IFS=',' read -ra CHATS <<< "$TG_CHAT_IDS"
-
-      for CHAT_ID in "${CHATS[@]}"; do
-        curl -sS -X POST "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
+      echo "$TG_CHAT_IDS" | tr ',' '\n' | while read CHAT_ID; do
+        [ -n "$CHAT_ID" ] && curl -sS -X POST "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
           -d "chat_id=$CHAT_ID" \
           --data-urlencode "text=$TEXT"
       done
