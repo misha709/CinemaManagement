@@ -21,8 +21,19 @@ pipeline {
 
         stage('Publish') {
             steps {
-                sh 'dotnet publish CinemaManagement.Web -c Release --no-restore -o dist'
-                sh 'ls dist'
+                sh '''
+                  set -eux
+            
+                  PUBLISH_DIR="$WORKSPACE/artifacts/dist"
+                  DATE=$(date +%Y-%m-%d)
+                  ARCHIVE_NAME="myapp-${DATE}-${BUILD_NUMBER}.zip"
+            
+                  dotnet publish ./CinemaManagement.Web/CinemaManagement.Web.csproj -c Release --no-restore -o "$PUBLISH_DIR"
+            
+                  cd "$WORKSPACE/artifacts"
+                  ls -l
+                  zip -r "$ARCHIVE_NAME" dist
+                '''
             }
             post {
                 success {
