@@ -69,7 +69,11 @@ def notifyTelegram(String status, String details) {
     sh '''
       set +x
 
-      TEXT="${TG_STATUS}%0AJob: ${JOB_NAME}%0ABuild: #${BUILD_NUMBER}%0A${TG_DETAILS}%0AURL: ${BUILD_URL}"
+      TEXT="${TG_STATUS}
+            Job: ${JOB_NAME}
+            Build: #${BUILD_NUMBER}
+            ${TG_DETAILS}
+            URL: ${BUILD_URL}"
 
       echo "$TG_CHAT_IDS" | tr ',' '\n' | while read CHAT_ID; do
         [ -n "$CHAT_ID" ] && curl -sS -X POST "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
